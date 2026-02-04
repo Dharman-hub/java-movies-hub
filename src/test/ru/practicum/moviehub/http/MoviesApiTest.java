@@ -96,13 +96,12 @@ public class MoviesApiTest {
 
     @Test
     void postMovies_createsMovie() throws Exception {
-        String json = """
-{
-   "title": "Oppenheimer",
-   "year": 2023,
-   "genre": "Biopic"
-}
-""";
+        String json =
+                  "{"
+                + "\"title\":\"Inception\","
+                + "\"year\":2010,"
+                + "\"genre\":\"Sci-Fi\""
+                + "}";
 
         HttpRequest req = HttpRequest.newBuilder()
                 .uri(URI.create(BASE + "/movies"))
