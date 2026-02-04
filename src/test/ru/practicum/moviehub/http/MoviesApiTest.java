@@ -98,9 +98,9 @@ public class MoviesApiTest {
     void postMovies_createsMovie() throws Exception {
         String json =
                   "{"
-                + "\"title\":\"Inception\","
-                + "\"year\":2010,"
-                + "\"genre\":\"Sci-Fi\""
+                + "\"title\":\"Oppenheimer\","
+                + "\"year\":2023,"
+                + "\"genre\":\"Biopic\""
                 + "}";
 
         HttpRequest req = HttpRequest.newBuilder()
