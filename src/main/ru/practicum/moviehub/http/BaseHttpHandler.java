@@ -38,5 +38,9 @@ abstract class BaseHttpHandler implements HttpHandler {
             return new String(is.readAllBytes(), StandardCharsets.UTF_8);
         }
     }
+
+    protected void sendNotFound(HttpExchange ex) throws IOException {
+        sendError(ex, 404, "Фильм не найден");
+    }
 }
 

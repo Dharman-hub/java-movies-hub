@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class MoviesStore {
     private final Map<Long, Movie> movies = new LinkedHashMap<>();
@@ -21,6 +22,12 @@ public class MoviesStore {
         Movie movie = new Movie(id, title, year, genre);
         movies.put(id, movie);
         return movie;
+    }
+
+    public List<Movie> findByYear(int year) {
+        return movies.values().stream()
+                .filter(movie -> movie.getYear() == year)
+                .collect(Collectors.toList());
     }
 
     public Optional<Movie> findById(long id) {

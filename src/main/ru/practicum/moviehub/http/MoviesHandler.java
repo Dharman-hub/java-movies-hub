@@ -20,6 +20,23 @@ public class MoviesHandler extends BaseHttpHandler {
         String method = ex.getRequestMethod();
 
         if (method.equalsIgnoreCase("GET")) {
+
+            String query = ex.getRequestURI().getQuery();
+            if (query != null && query.startsWith("year=")) {
+                String yearStr = query.substring("year=".length());
+
+                try {
+                    int year = Integer.parseInt(yearStr);
+                    String json = gson.toJson(store.findByYear(year));
+                    sendJson(ex, 200, json);
+                    return;
+                } catch (NumberFormatException e) {
+                    sendError(ex, 400, "Некорректный параметр year");
+                    return;
+                }
+
+            }
+
             String json = gson.toJson(store.getAll());
             sendJson(ex, 200, json);
             return;
@@ -37,7 +54,7 @@ public class MoviesHandler extends BaseHttpHandler {
 
                 NewMovieRequest req = gson.fromJson(body, NewMovieRequest.class);
                 if (req == null || req.getTitle() == null || req.getTitle().isBlank()
-                        || req.getGenre().isBlank() || req.getGenre() == null || req.getYear() <= 0) {
+                        || req.getGenre() == null || req.getGenre().isBlank() || req.getYear() <= 0) {
                     sendError(ex, 400, "Введены некорректные данные");
                     return;
                 }

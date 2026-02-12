@@ -28,7 +28,7 @@ public class MovieByIdHandler extends BaseHttpHandler {
         if (method.equalsIgnoreCase("GET")) {
             Optional<Movie> movie = store.findById(id);
             if (movie.isEmpty()) {
-                sendError(ex, 404, "Фильм не найден");
+                sendNotFound(ex);
                 return;
             }
             sendJson(ex, 200, gson.toJson(movie.get()));
@@ -38,7 +38,7 @@ public class MovieByIdHandler extends BaseHttpHandler {
         if (method.equalsIgnoreCase("DELETE")) {
             boolean deleted = store.deleteById(id);
             if (!deleted) {
-                sendError(ex, 404, "Фильм не найден");
+                sendNotFound(ex);
                 return;
             }
             sendNoContent(ex);
